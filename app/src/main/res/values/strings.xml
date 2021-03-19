@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Fitness</string>
+    <string name="weight_input">Enter your weight in kg...</string>
+    <string name="height_input">Enter your height in cm...</string>
+    <string name="age_input">Enter your age...</string>
+    <string name="email_input">Enter your email...</string>
+    <string name="password_input">Enter your password...</string>
+    <string name="confirm_password_input">Confirm your password...</string>
+</resources>
