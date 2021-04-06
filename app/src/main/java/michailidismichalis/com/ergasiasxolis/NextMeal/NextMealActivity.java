@@ -12,7 +12,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -30,6 +29,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import michailidismichalis.com.ergasiasxolis.Data.Data;
@@ -46,7 +46,6 @@ public class NextMealActivity extends AppCompatActivity {
     private static ArrayList<FoodObject> mealList;
     private AlertDialog dialog;
     private Button createMealButton;
-    private static  MealObject myMeal;
     private static Map<String, Boolean> existingMeals;
     private static TextView totalKcals;
     private static TextView totalProtein;
@@ -67,8 +66,6 @@ public class NextMealActivity extends AppCompatActivity {
         addedMealsList = new ArrayList<>();
         mealList = new ArrayList<>();
         savedMealsList = new ArrayList<>();
-
-        myMeal = new MealObject();
 
         totalKcals = findViewById(R.id.totalKcals);
         totalProtein = findViewById(R.id.totalProtein);
@@ -139,7 +136,6 @@ public class NextMealActivity extends AppCompatActivity {
     }
 
     public static void deleteAddedMeal(int position){
-        myMeal.removeFood(mealList.get(position).getId());
         addedMealsList.remove(position);
         addedMealsAdapter.notifyDataSetChanged();
     }
@@ -151,7 +147,6 @@ public class NextMealActivity extends AppCompatActivity {
             }
         }
 
-        myMeal.addFood(mealList.get(position));
         addedMealsList.add(mealList.get(position));
         addedMealsAdapter.notifyDataSetChanged();
 
@@ -237,34 +232,67 @@ public class NextMealActivity extends AppCompatActivity {
                 ArrayList<MealObject> meals = new ArrayList<>();
 
                 if(snapshot.exists()){
-                    for(DataSnapshot savedMealSnapshot: snapshot.getChildren()){
+                    for(DataSnapshot mealSnapshot: snapshot.getChildren()) {
                         ArrayList<FoodObject> foodList = new ArrayList<>();
 
-                        Map<String, FoodObject> foodSnapshot = (Map<String, FoodObject>) savedMealSnapshot.getValue();
+                        for (DataSnapshot foodSnapshot : mealSnapshot.getChildren()) {
+                            Iterator<DataSnapshot> iterator = foodSnapshot.getChildren().iterator();
 
+                            String category = "", name = "", photo = "";
+                            int carbs = 0, kcals = 0, fat = 0, protein = 0;
 
-                        for (Map.Entry<String,FoodObject> entry : foodSnapshot.entrySet()){
-//                            System.out.println(""+ entry.getKey() +
-//                                    entry.getValue());
+                            while (iterator.hasNext()) {
+                                DataSnapshot foodValue = iterator.next();
 
-//                            FoodObject fo = new FoodObject(
-//                                    entry.getKey(),
-//                                    entry.getValue().getCategory(),
-//                                    entry.getValue().getName(),
-//                                    entry.getValue().getPhoto(),
-//                                    entry.getValue().getKcals(),
-//                                    entry.getValue().getProtein(),
-//                                    entry.getValue().getFat(),
-//                                    entry.getValue().getCarbs()
-//                            );
-//
-//                            foodList.add(fo);
+                                switch (foodValue.getKey()){
+                                    case "kcals":
+                                        kcals = Integer.parseInt(foodValue.getValue().toString());
+                                        break;
+                                    case "fat":
+                                        fat = Integer.parseInt(foodValue.getValue().toString());
+                                        break;
+                                    case "protein":
+                                        protein = Integer.parseInt(foodValue.getValue().toString());
+                                        break;
+                                    case "carbs":
+                                        carbs = Integer.parseInt(foodValue.getValue().toString());
+                                        break;
+                                    case "category":
+                                        category = foodValue.getValue().toString();
+                                        break;
+                                    case "name":
+                                        name = foodValue.getValue().toString();
+                                        break;
+                                    case "photo":
+                                        photo = foodValue.getValue().toString();
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }
+
+                            FoodObject fo = new FoodObject(
+                                    foodSnapshot.getKey(),
+                                    category,
+                                    name,
+                                    photo,
+                                    kcals,
+                                    protein,
+                                    fat,
+                                    carbs
+                                    );
+
+                            foodList.add(fo);
                         }
 
-//                        meals.add(new MealObject(savedMealSnapshot.getKey(), foodList));
+                        meals.add(new MealObject(mealSnapshot.getKey(), foodList));
                     }
 
-                    savedMealsList = meals;
+                    for(MealObject mo: meals){
+                        savedMealsList.add(mo);
+                    }
+
+                    savedMealsAdapter.notifyDataSetChanged();
                 }
 
             }
@@ -276,6 +304,29 @@ public class NextMealActivity extends AppCompatActivity {
         });
     }
 
+    private void createNextMeal(){
+        DatabaseReference db = FirebaseDatabase.getInstance().getReference().child("meals").child(FirebaseAuth.getInstance().getUid());
+
+        Map<String, Object> foodMap = new HashMap<>();
+
+        for(FoodObject fo: addedMealsList){
+            String id = db.push().getKey();
+
+            Map<String, String> food = new HashMap<>();
+            food.put("category", fo.getCategory());
+            food.put("name", fo.getName());
+            food.put("photo", fo.getPhoto());
+            food.put("kcals", fo.getKcals() + "");
+            food.put("protein", fo.getProtein() + "");
+            food.put("fat", fo.getFat() + "");
+            food.put("carbs", fo.getCarbs() + "");
+
+            foodMap.put(id, food);
+        }
+
+        db.push().updateChildren(foodMap);
+    }
+
     private void createConfirmDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setCancelable(true);
@@ -285,6 +336,8 @@ public class NextMealActivity extends AppCompatActivity {
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        createNextMeal();
+
                         Intent intent = new Intent(getApplicationContext(), SaveMealActivity.class);
                         intent.putExtra("foodList", addedMealsList);
 
@@ -296,7 +349,11 @@ public class NextMealActivity extends AppCompatActivity {
         builder.setNegativeButton("Don't Save", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                createNextMeal();
+
                 dialog.cancel();
+
+                finish();
             }
         });
 

@@ -3,14 +3,8 @@ package michailidismichalis.com.ergasiasxolis.NextMeal;
 import java.io.Serializable;
 
 public class FoodObject implements Serializable {
-    private String id, name, photo, category;
-    private int kcals, protein, fat, carbs;
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public FoodObject(){}
+    private final String id, name, photo, category;
+    private final int kcals, protein, fat, carbs;
 
     public FoodObject(String id, String category, String name, String photo, int kcals, int protein, int fat, int carbs) {
         this.id = id;
