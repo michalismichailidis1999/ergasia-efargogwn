@@ -25,18 +25,18 @@ public class InitialScreenActivity extends AppCompatActivity {
 
         Button loginButton = findViewById(R.id.loginButton);
 
-        loginButton.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), LoginActivity.class)));
+        loginButton.setOnClickListener(v -> startActivity(new Intent(this, LoginActivity.class)));
 
         Button registerButton = findViewById(R.id.registerButton);
 
-        registerButton.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), RegisterUserInfoActivity.class)));
+        registerButton.setOnClickListener(v -> startActivity(new Intent(this, RegisterUserInfoActivity.class)));
     }
 
     private void userIsLoggedIn() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         if(user != null){
-            startActivity(new Intent(getApplicationContext(), MainMenuActivity.class));
+            startActivity(new Intent(getApplicationContext(), MenuActivity.class));
             finish();
             return;
         }

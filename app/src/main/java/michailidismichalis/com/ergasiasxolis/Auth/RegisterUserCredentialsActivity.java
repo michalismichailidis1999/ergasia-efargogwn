@@ -18,7 +18,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import michailidismichalis.com.ergasiasxolis.MainMenuActivity;
+import michailidismichalis.com.ergasiasxolis.MenuActivity;
 import michailidismichalis.com.ergasiasxolis.R;
 
 public class RegisterUserCredentialsActivity extends AppCompatActivity {
@@ -75,7 +75,7 @@ public class RegisterUserCredentialsActivity extends AppCompatActivity {
                         UserObject userObj = new UserObject(user.getEmail(), mySex, myWeight, myHeight, myAge);
                         usersDB.setValue(userObj);
 
-                        Intent intent = new Intent(getApplicationContext(), MainMenuActivity.class);
+                        Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
                         finish();

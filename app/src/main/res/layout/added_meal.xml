@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/addedMealLayout">
+
+    <com.google.android.material.chip.Chip
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:closeIconEnabled="true"
+        app:checkedIconEnabled="false"
+        android:id="@+id/addedMeal"
+        android:text="Test"
+        android:layout_marginRight="10dp"/>
+
+</LinearLayout>

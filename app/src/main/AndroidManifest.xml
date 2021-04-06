@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ErgasiaSxolis">
-        <activity android:name=".MainMenuActivity"></activity>
+        <activity android:name=".NextMeal.SaveMealActivity"></activity>
+        <activity android:name=".NextMeal.NextMealActivity" />
+        <activity android:name=".MenuActivity" />
         <activity android:name=".Auth.RegisterUserCredentialsActivity" />
         <activity android:name=".Auth.RegisterUserInfoActivity" />
         <activity android:name=".Auth.LoginActivity" />

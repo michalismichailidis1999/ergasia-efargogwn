@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    app:cardCornerRadius="4dp"
+    android:clipToPadding="false"
+    android:clipChildren="false"
+    app:cardBackgroundColor="#f9f9f9"
+    app:cardElevation="5dp"
+    app:cardUseCompatPadding="true"
+    app:cardPreventCornerOverlap="false"
+    android:clickable="true"
+    android:id="@+id/saved_meal">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Meal Name"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:paddingVertical="5dp"
+            android:layout_marginBottom="10dp"
+            android:id="@+id/mealName"
+            android:gravity="center"
+            android:background="@color/main_color"
+            android:textColor="#ffffff"/>
+
+        <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="180dp"
+            android:scrollbars="vertical"
+            android:id="@+id/savedMealsListView"
+            />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

@@ -6,4 +6,10 @@
     <string name="email_input">Enter your email...</string>
     <string name="password_input">Enter your password...</string>
     <string name="confirm_password_input">Confirm your password...</string>
+
+    <string-array name="meal_categories">
+        <item>Meat</item>
+        <item>Dairy</item>
+        <item>Vegetables</item>
+    </string-array>
 </resources>
