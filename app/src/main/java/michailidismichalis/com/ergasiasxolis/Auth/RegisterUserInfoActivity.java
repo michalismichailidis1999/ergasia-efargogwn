@@ -19,7 +19,6 @@ public class RegisterUserInfoActivity extends AppCompatActivity {
     private EditText height;
     private EditText age;
     private String mySex = "";
-    private RadioButton female;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,8 +55,6 @@ public class RegisterUserInfoActivity extends AppCompatActivity {
                 }
             }
         });
-
-        female = findViewById(R.id.female);
     }
 
     private void ContinueRegistration(){

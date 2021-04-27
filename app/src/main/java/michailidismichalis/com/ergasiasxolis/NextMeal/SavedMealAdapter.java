@@ -8,6 +8,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -37,9 +38,11 @@ public class SavedMealAdapter extends RecyclerView.Adapter<SavedMealAdapter.Save
 
     @Override
     public void onBindViewHolder(@NonNull SavedMealAdapter.SavedMealViewHolder holder, int position) {
-        holder.mealName.setText(mealList.get(0).getId());
+        holder.mealName.setText(mealList.get(position).getId());
         holder.foodAdapter = new FoodAdapter(context, resource, mealList.get(position).getFoodList());
         holder.savedMealsListView.setAdapter(holder.foodAdapter);
+
+        holder.savedMeal.setOnClickListener(v -> { NextMealActivity.addSavedMealFoodsToAddedMeals(position); });
     }
 
     @Override
@@ -51,9 +54,12 @@ public class SavedMealAdapter extends RecyclerView.Adapter<SavedMealAdapter.Save
         public TextView mealName;
         public ListView savedMealsListView;
         public FoodAdapter foodAdapter;
+        public CardView savedMeal;
+
         public SavedMealViewHolder(@NonNull View itemView) {
             super(itemView);
 
+            savedMeal = itemView.findViewById(R.id.saved_meal);
             mealName = itemView.findViewById(R.id.mealName);
             savedMealsListView = itemView.findViewById(R.id.savedMealsListView);
         }

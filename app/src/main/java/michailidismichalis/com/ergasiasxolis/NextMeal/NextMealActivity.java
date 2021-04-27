@@ -28,6 +28,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -138,6 +139,22 @@ public class NextMealActivity extends AppCompatActivity {
     public static void deleteAddedMeal(int position){
         addedMealsList.remove(position);
         addedMealsAdapter.notifyDataSetChanged();
+
+        int kcals = 0;
+        int protein = 0;
+        int fat = 0;
+        int carbs = 0;
+        for(FoodObject fo: addedMealsList){
+            kcals += fo.getKcals();
+            protein += fo.getProtein();
+            fat += fo.getFat();
+            carbs += fo.getCarbs();
+        }
+
+        totalKcals.setText("Total Kcals: " + kcals);
+        totalProtein.setText("Total Protein: " + protein);
+        totalFat.setText("Total Fat: " + fat);
+        totalCarbs.setText("Total Carbs: " + carbs);
     }
 
     public static void addMeal(int position){
@@ -167,6 +184,31 @@ public class NextMealActivity extends AppCompatActivity {
         totalCarbs.setText("Total Carbs: " + carbs);
     }
 
+    public static void addSavedMealFoodsToAddedMeals(int position){
+        ArrayList<FoodObject> foodsToAdd = new ArrayList<>();
+
+        for(FoodObject fo: savedMealsList.get(position).getFoodList()){
+            boolean alreadyAdded = false;
+
+            for(FoodObject addedFO : addedMealsList){
+                if(addedFO.getName().equals(fo.getName())){
+                    alreadyAdded = true;
+                    break;
+                }
+            }
+
+            if(!alreadyAdded){
+                foodsToAdd.add(fo);
+            }
+        }
+
+        for(FoodObject fo: foodsToAdd){
+            addedMealsList.add(fo);
+        }
+
+        addedMealsAdapter.notifyDataSetChanged();
+    }
+
     private void initializeAddedMealRecyclerView(){
         addedMeals = findViewById(R.id.addedMeals);
         addedMeals.setNestedScrollingEnabled(false);
@@ -191,7 +233,6 @@ public class NextMealActivity extends AppCompatActivity {
 
     private void initializeSavedMealRecyclerView(){
         savedMeals = findViewById(R.id.savedMeals);
-        //savedMeals.setNestedScrollingEnabled(false);
         savedMeals.setHasFixedSize(false);
         RecyclerView.LayoutManager savedMealsLayoutManager = new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false);
         savedMeals.setLayoutManager(savedMealsLayoutManager);
@@ -324,7 +365,10 @@ public class NextMealActivity extends AppCompatActivity {
             foodMap.put(id, food);
         }
 
-        db.push().updateChildren(foodMap);
+        Map<String, Map<String, Object>> meal = new HashMap<>();
+        meal.put(new Date().getTime() + "", foodMap);
+
+        db.setValue(meal);
     }
 
     private void createConfirmDialog(){
