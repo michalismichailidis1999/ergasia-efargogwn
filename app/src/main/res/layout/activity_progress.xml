@@ -10,7 +10,7 @@
         android:id="@+id/TitleMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Don_t_forget_to_check_your_progress"
+        android:text="Dont_forget_to_check_your_progress"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="89dp"
         tools:layout_editor_absoluteY="42dp" />

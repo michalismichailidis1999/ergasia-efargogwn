@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.view.View;
+
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -37,7 +37,7 @@ public class ProgressActivity extends AppCompatActivity {
 
         Mealist= new ArrayList<>();
         fetchMeals();
-        System.out.println("hi");
+        System.out.println("hiii");
         System.out.print(Mealist.size());
 
         //MealHistory.setVisibility(View.GONE);
