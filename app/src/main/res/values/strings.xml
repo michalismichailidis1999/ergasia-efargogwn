@@ -6,6 +6,7 @@
     <string name="email_input">Enter your email...</string>
     <string name="password_input">Enter your password...</string>
     <string name="confirm_password_input">Confirm your password...</string>
+    <string name="don_t_forget_to_scheck_your_progress">Don\'t forget to scheck your progress</string>
 
     <string-array name="meal_categories">
         <item>Meat</item>
