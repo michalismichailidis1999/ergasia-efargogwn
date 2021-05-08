@@ -2,6 +2,7 @@ package michailidismichalis.com.ergasiasxolis.progress;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
@@ -17,15 +18,20 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import michailidismichalis.com.ergasiasxolis.NextMeal.AddedMealAdapter;
 import michailidismichalis.com.ergasiasxolis.NextMeal.FoodObject;
+import michailidismichalis.com.ergasiasxolis.NextMeal.MealAdapter;
 import michailidismichalis.com.ergasiasxolis.NextMeal.MealObject;
+import michailidismichalis.com.ergasiasxolis.NextMeal.SavedMealAdapter;
 import michailidismichalis.com.ergasiasxolis.R;
 
 public class ProgressActivity extends AppCompatActivity {
-    private RecyclerView MealHistory;
+    private RecyclerView eatedMeals;
+    private RecyclerView.Adapter EatedMealsAdapter;
 
-    ArrayList<MealObjectEated> Mealist;
-    ArrayList<MealObject> Mealist2;
+
+    ArrayList<MealObject> Mealist;
+
 
 
 
@@ -35,14 +41,15 @@ public class ProgressActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_progress);
 
-        Mealist2= new ArrayList<>();
+
         Mealist= new ArrayList<>();
         fetchMeals();
+        initializeSavedMealRecyclerView();
         System.out.println("hiii");
-        System.out.print(Mealist2.size());
+
         //MealHistory.setVisibility(View.GONE);
         //Mealist.add(new MealObjectEated(11/05/24,"Steak",290,25,13,20));
-        //System.out.println(Mealist);
+
     }
 
 
@@ -117,9 +124,9 @@ public class ProgressActivity extends AppCompatActivity {
                     }
 
                     for(MealObject mo: meals){
-                        Mealist2.add(mo);
+                        Mealist.add(mo);
                     }
-
+                    EatedMealsAdapter.notifyDataSetChanged();
 
 
                 }
@@ -132,5 +139,22 @@ public class ProgressActivity extends AppCompatActivity {
             }
         });
     }
+
+
+
+    private void initializeSavedMealRecyclerView(){
+        eatedMeals = findViewById(R.id.eatedmeals);
+        eatedMeals.setHasFixedSize(false);
+        RecyclerView.LayoutManager savedMealsLayoutManager = new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false);
+        eatedMeals.setLayoutManager(savedMealsLayoutManager);
+
+        EatedMealsAdapter = new SavedMealAdapter(this, R.layout.saved_meal_food, Mealist);
+        eatedMeals.setAdapter(EatedMealsAdapter);
+        System.out.println("Items on adapter are: " + EatedMealsAdapter.getItemCount());
+    }
+
+
 }
+
+
 
