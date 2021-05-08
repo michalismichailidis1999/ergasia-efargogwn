@@ -24,7 +24,8 @@ import michailidismichalis.com.ergasiasxolis.R;
 public class ProgressActivity extends AppCompatActivity {
     private RecyclerView MealHistory;
 
-    ArrayList<MealObject> Mealist;
+    ArrayList<MealObjectEated> Mealist;
+    ArrayList<MealObject> Mealist2;
 
 
 
@@ -34,13 +35,14 @@ public class ProgressActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_progress);
 
-
+        Mealist2= new ArrayList<>();
         Mealist= new ArrayList<>();
         fetchMeals();
         System.out.println("hiii");
-        System.out.print(Mealist.size());
-
+        System.out.print(Mealist2.size());
         //MealHistory.setVisibility(View.GONE);
+        //Mealist.add(new MealObjectEated(11/05/24,"Steak",290,25,13,20));
+        //System.out.println(Mealist);
     }
 
 
@@ -60,7 +62,7 @@ public class ProgressActivity extends AppCompatActivity {
                 if(snapshot.exists()){
                     for(DataSnapshot mealSnapshot: snapshot.getChildren()) {
                         ArrayList<FoodObject> foodList = new ArrayList<>();
-
+                        System.out.println("00000");
                         for (DataSnapshot foodSnapshot : mealSnapshot.getChildren()) {
                             Iterator<DataSnapshot> iterator = foodSnapshot.getChildren().iterator();
 
@@ -115,7 +117,7 @@ public class ProgressActivity extends AppCompatActivity {
                     }
 
                     for(MealObject mo: meals){
-                        Mealist.add(mo);
+                        Mealist2.add(mo);
                     }
 
 

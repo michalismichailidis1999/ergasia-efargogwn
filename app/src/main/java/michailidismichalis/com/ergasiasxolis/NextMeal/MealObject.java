@@ -16,6 +16,8 @@ public class MealObject {
         this.foodList = foodList;
     }
 
+
+
     public void addFood(FoodObject food){
         this.foodList.add(food);
     }
