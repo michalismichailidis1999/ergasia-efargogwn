@@ -365,10 +365,7 @@ public class NextMealActivity extends AppCompatActivity {
             foodMap.put(id, food);
         }
 
-        Map<String, Map<String, Object>> meal = new HashMap<>();
-        meal.put(new Date().getTime() + "", foodMap);
-
-        db.setValue(meal);
+        db.child(new Date().getTime() + "").setValue(foodMap);
     }
 
     private void createConfirmDialog(){
