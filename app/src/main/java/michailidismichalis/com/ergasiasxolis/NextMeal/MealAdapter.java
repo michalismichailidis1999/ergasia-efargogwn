@@ -26,6 +26,8 @@ public class MealAdapter extends RecyclerView.Adapter<MealAdapter.MealViewHolder
         this.foodList = foodList;
     }
 
+
+
     @NonNull
     @Override
     public MealViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
