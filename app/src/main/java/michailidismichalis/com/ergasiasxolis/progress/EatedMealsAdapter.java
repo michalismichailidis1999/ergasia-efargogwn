@@ -15,7 +15,6 @@ import java.util.ArrayList;
 
 import michailidismichalis.com.ergasiasxolis.NextMeal.FoodAdapter;
 import michailidismichalis.com.ergasiasxolis.NextMeal.MealObject;
-import michailidismichalis.com.ergasiasxolis.NextMeal.NextMealActivity;
 import michailidismichalis.com.ergasiasxolis.R;
 
 public class EatedMealsAdapter extends RecyclerView.Adapter<EatedMealsAdapter.EatedMealViewHolder>{
@@ -32,20 +31,20 @@ public class EatedMealsAdapter extends RecyclerView.Adapter<EatedMealsAdapter.Ea
     @NonNull
     @Override
     public EatedMealsAdapter.EatedMealViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.eatedmeals, null, false);
+        View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.eated_meals, null, false);
 
-        EatedMealsAdapter.EatedMealViewHolder viewHolder = new EatedMealsAdapter.EatedMealViewHolder(layoutView);
+        EatedMealsAdapter.EatedMealViewHolder viewHolder2 = new EatedMealsAdapter.EatedMealViewHolder(layoutView);
 
-        return viewHolder;
+        return viewHolder2;
     }
 
     @Override
     public void onBindViewHolder(@NonNull EatedMealsAdapter.EatedMealViewHolder holder, int position) {
-        holder.mealName.setText(mealList.get(position).getId());
-        holder.foodAdapter = new FoodAdapter(context, resource, mealList.get(position).getFoodList());
-        holder.savedMealsListView.setAdapter(holder.foodAdapter);
+        holder.mealName2.setText(mealList.get(position).getId());
+        holder.EatedMealsAdapter = new FoodAdapter(context, resource, mealList.get(position).getFoodList());
+        holder.savedMealsListView2.setAdapter(holder.EatedMealsAdapter);
 
-        holder.savedMeal.setOnClickListener(v -> { NextMealActivity.addSavedMealFoodsToAddedMeals(position); });
+        //holder.savedMeal2.setOnClickListener(v -> { NextMealActivity.addSavedMealFoodsToAddedMeals(position); });
     }
 
     @Override
@@ -54,17 +53,17 @@ public class EatedMealsAdapter extends RecyclerView.Adapter<EatedMealsAdapter.Ea
     }
 
     public class EatedMealViewHolder extends RecyclerView.ViewHolder{
-        public TextView mealName;
-        public ListView savedMealsListView;
-        public FoodAdapter foodAdapter;
-        public CardView savedMeal;
+        public TextView mealName2;
+        public ListView savedMealsListView2;
+        public FoodAdapter EatedMealsAdapter;
+        public CardView savedMeal2;
 
         public EatedMealViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            savedMeal = itemView.findViewById(R.id.saved_meal);
-            mealName = itemView.findViewById(R.id.mealName);
-            savedMealsListView = itemView.findViewById(R.id.savedMealsListView);
+            savedMeal2 = itemView.findViewById(R.id.eatedmeals);
+            mealName2 = itemView.findViewById(R.id.mealName2);
+            savedMealsListView2 = itemView.findViewById(R.id.savedMealsListView2);
         }
     }
 }

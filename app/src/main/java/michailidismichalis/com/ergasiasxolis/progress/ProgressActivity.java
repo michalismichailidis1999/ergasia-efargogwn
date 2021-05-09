@@ -18,15 +18,15 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import michailidismichalis.com.ergasiasxolis.NextMeal.AddedMealAdapter;
+
 import michailidismichalis.com.ergasiasxolis.NextMeal.FoodObject;
-import michailidismichalis.com.ergasiasxolis.NextMeal.MealAdapter;
+
 import michailidismichalis.com.ergasiasxolis.NextMeal.MealObject;
-import michailidismichalis.com.ergasiasxolis.NextMeal.SavedMealAdapter;
+
 import michailidismichalis.com.ergasiasxolis.R;
 
 public class ProgressActivity extends AppCompatActivity {
-    private RecyclerView eatedMeals;
+    private RecyclerView eatedmeals;
     private RecyclerView.Adapter EatedMealsAdapter;
 
 
@@ -43,12 +43,12 @@ public class ProgressActivity extends AppCompatActivity {
 
 
         Mealist= new ArrayList<>();
-        fetchMeals();
-        initializeSavedMealRecyclerView();
+        EatedMeals();
+        initializeEatedMealRecyclerView();
         System.out.println("hiii");
+        EatedMealsByDay();
 
-        //MealHistory.setVisibility(View.GONE);
-        //Mealist.add(new MealObjectEated(11/05/24,"Steak",290,25,13,20));
+
 
     }
 
@@ -58,7 +58,7 @@ public class ProgressActivity extends AppCompatActivity {
 
 
 
-    private void fetchMeals(){
+    private void EatedMeals(){
         DatabaseReference refDB = FirebaseDatabase.getInstance().getReference().child("meals").child(FirebaseAuth.getInstance().getUid());
 
         refDB.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -69,10 +69,9 @@ public class ProgressActivity extends AppCompatActivity {
                 if(snapshot.exists()){
                     for(DataSnapshot mealSnapshot: snapshot.getChildren()) {
                         ArrayList<FoodObject> foodList = new ArrayList<>();
-                        System.out.println("00000");
                         for (DataSnapshot foodSnapshot : mealSnapshot.getChildren()) {
                             Iterator<DataSnapshot> iterator = foodSnapshot.getChildren().iterator();
-
+                            System.out.println(foodSnapshot.getChildren());
                             String category = "", name = "", photo = "";
                             int carbs = 0, kcals = 0, fat = 0, protein = 0;
 
@@ -102,6 +101,7 @@ public class ProgressActivity extends AppCompatActivity {
                                     default:
                                         break;
                                 }
+
                             }
 
                             FoodObject fo = new FoodObject(
@@ -117,8 +117,9 @@ public class ProgressActivity extends AppCompatActivity {
 
                             foodList.add(fo);
                         }
-
+                        //System.out.println(mealSnapshot.getKey());
                         meals.add(new MealObject(mealSnapshot.getKey(), foodList));
+
                     }
 
                     for(MealObject mo: meals){
@@ -140,16 +141,33 @@ public class ProgressActivity extends AppCompatActivity {
 
 
 
-    private void initializeSavedMealRecyclerView(){
-        eatedMeals = findViewById(R.id.eatedmeals);
-        eatedMeals.setHasFixedSize(false);
-        RecyclerView.LayoutManager savedMealsLayoutManager = new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false);
-        eatedMeals.setLayoutManager(savedMealsLayoutManager);
+    private void initializeEatedMealRecyclerView(){
+        eatedmeals = findViewById(R.id.eatedmeals);
+        eatedmeals.setHasFixedSize(false);
+        RecyclerView.LayoutManager EatedMealsLayoutManager = new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false);
+        eatedmeals.setLayoutManager(EatedMealsLayoutManager);
 
-        EatedMealsAdapter = new SavedMealAdapter(this, R.layout.saved_meal_food, Mealist);
-        eatedMeals.setAdapter(EatedMealsAdapter);
+        EatedMealsAdapter = new EatedMealsAdapter(this, R.layout.eated_meals_food, Mealist);
+        eatedmeals.setAdapter(EatedMealsAdapter);
         System.out.println("Items on adapter are: " + EatedMealsAdapter.getItemCount());
     }
+
+
+    private void EatedMealsByDay(){
+
+        System.out.println("fff");
+        for (MealObject mo: Mealist)
+        {
+            System.out.println(mo.getId());
+        }
+
+    }
+
+
+
+
+
+
 
 
 }

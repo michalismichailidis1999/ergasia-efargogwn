@@ -38,4 +38,47 @@ public class MealObject {
     public String getId() {
         return id;
     }
+
+
+    public int getTotallKcals(){
+        int totallKcals=0;
+        for (FoodObject Fo: foodList)
+        {
+            totallKcals+=Fo.getKcals();
+        }
+        return  totallKcals;
+    }
+
+    public int getTotalProtein(){
+        int totalProtein=0;
+        for (FoodObject Fo: foodList)
+        {
+            totalProtein+=Fo.getProtein();
+        }
+        return  totalProtein;
+    }
+
+    public int getTotalFat(){
+        int totalFat=0;
+        for (FoodObject Fo: foodList)
+        {
+            totalFat+=Fo.getFat();
+        }
+        return  totalFat;
+    }
+
+    public int getTotalCarbs(){
+        int Totalcarbs=0;
+        for (FoodObject Fo: foodList)
+        {
+            Totalcarbs+=Fo.getCarbs();
+        }
+        return  Totalcarbs;
+    }
+
+
+
+
+
+
 }

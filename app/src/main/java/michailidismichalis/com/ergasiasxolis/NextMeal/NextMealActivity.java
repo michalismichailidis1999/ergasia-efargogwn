@@ -20,6 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -27,11 +28,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 import michailidismichalis.com.ergasiasxolis.Data.Data;
 import michailidismichalis.com.ergasiasxolis.R;
@@ -55,12 +60,13 @@ public class NextMealActivity extends AppCompatActivity {
     private static ArrayList<MealObject> savedMealsList;
     private RecyclerView savedMeals;
     private RecyclerView.Adapter savedMealsAdapter;
+    private String DayMonthYearTime_Key;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_next_meal);
-
+        DayMonthYearTime_Key= "00/00/00";
         data = new Data();
         existingMeals = new HashMap<>();
 
@@ -345,6 +351,7 @@ public class NextMealActivity extends AppCompatActivity {
         });
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void createNextMeal(){
         DatabaseReference db = FirebaseDatabase.getInstance().getReference().child("meals").child(FirebaseAuth.getInstance().getUid());
 
@@ -365,7 +372,19 @@ public class NextMealActivity extends AppCompatActivity {
             foodMap.put(id, food);
         }
 
-        db.child(new Date().getTime() + "").setValue(foodMap);
+        //Οι αλλαγές που έκανα ξεκίνησαν από δω
+        Date date = new Date();
+        LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        int year  = localDate.getYear();
+        int month = localDate.getMonthValue();
+        int day   = localDate.getDayOfMonth();
+        int Time = (int) new Date().getTime();
+        DayMonthYearTime_Key = day + "-" + month + "-" + year + " " + Time;
+
+        db.child(DayMonthYearTime_Key).setValue(foodMap);
+        //Και τελείωσαν εδώ εκτός από πάνω που δήλωσα τις μεταβλητές το επόμενο σχόλιο είναι αυτό που είχες εσύ
+
+        //db.child(new Date() +"").setValue(foodMap);
     }
 
     private void createConfirmDialog(){
