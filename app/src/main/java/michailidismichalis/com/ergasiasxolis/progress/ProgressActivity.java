@@ -98,9 +98,7 @@ public class ProgressActivity extends AppCompatActivity {
                                     case "name":
                                         name = foodValue.getValue().toString();
                                         break;
-                                    case "photo":
-                                        photo = foodValue.getValue().toString();
-                                        break;
+
                                     default:
                                         break;
                                 }
