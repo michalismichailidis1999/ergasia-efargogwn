@@ -25,6 +25,8 @@ public class MenuActivity extends AppCompatActivity {
 
         checkProgressButton.setOnClickListener(v -> {startActivity(new Intent(this, ProgressActivity.class));});
 
+        Button profileButton = findViewById(R.id.profileButton);
+        profileButton.setOnClickListener(v -> {startActivity(new Intent(this, ProfileActivity.class));});
 
         Button exitButton = findViewById(R.id.exitButton);
 

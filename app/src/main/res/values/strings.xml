@@ -8,6 +8,14 @@
     <string name="confirm_password_input">Confirm your password...</string>
     <string name="don_t_forget_to_scheck_your_progress">Don\'t forget to scheck your progress</string>
 
+    <string name="height"> Height</string>
+    <string name="weight">Weight</string>
+    <string name="age">Age</string>
+    <string name="email">Email</string>
+    <string name="profile">Profile</string>
+    <string name="back">Back</string>
+    <string name="save">Save</string>
+
     <string-array name="meal_categories">
         <item>Meat</item>
         <item>Dairy</item>

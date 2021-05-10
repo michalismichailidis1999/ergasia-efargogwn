@@ -15,6 +15,7 @@
         <activity android:name=".NextMeal.SaveMealActivity" />
         <activity android:name=".NextMeal.NextMealActivity" />
         <activity android:name=".MenuActivity" />
+        <activity android:name=".ProfileActivity" />
         <activity android:name=".Auth.RegisterUserCredentialsActivity" />
         <activity android:name=".Auth.RegisterUserInfoActivity" />
         <activity android:name=".Auth.LoginActivity" />
