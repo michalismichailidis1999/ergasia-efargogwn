@@ -21,6 +21,7 @@ import java.util.HashSet;
 
 import michailidismichalis.com.ergasiasxolis.NextMeal.FoodObject;
 
+import michailidismichalis.com.ergasiasxolis.progress.FoodObject2;
 import michailidismichalis.com.ergasiasxolis.NextMeal.MealObject;
 
 import michailidismichalis.com.ergasiasxolis.R;
@@ -28,21 +29,25 @@ import michailidismichalis.com.ergasiasxolis.R;
 public class ProgressActivity extends AppCompatActivity {
     private RecyclerView eatedmeals;
     private RecyclerView.Adapter EatedMealsAdapter;
-
+    private RecyclerView dayGains;
+    private RecyclerView.Adapter DayGainsAdapter;
 
     ArrayList<MealObject> Mealist;
     ArrayList Dates;
+    ArrayList<FoodObject2> foodList2 ;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_progress);
-
+        foodList2 = new ArrayList<>();
         Dates = new ArrayList();
         Mealist = new ArrayList<>();
         EatedMeals();
         initializeEatedMealRecyclerView();
+        initializeDayGainsRecyclerView();
+
 
 
 
@@ -150,11 +155,11 @@ public class ProgressActivity extends AppCompatActivity {
             Dates.add(onlyDate[0]);
 
         }
-        System.out.println(Dates);
+        //System.out.println(Dates);
         HashSet <String> UniqueDates = new HashSet<String>(Dates);
-        System.out.println(UniqueDates);
-        ArrayList<FoodObject> foodList = new ArrayList<>();
-        ArrayList<MealObject> meals = new ArrayList<>();
+        //System.out.println(UniqueDates);
+
+
 
 
         for (String i : UniqueDates) {
@@ -171,24 +176,42 @@ public class ProgressActivity extends AppCompatActivity {
                     kcalsTotal=kcalsTotal+mo2.getTotallKcals();
                     fatTotal=fatTotal+mo2.getTotalFat();
                     proteinTotal=proteinTotal+mo2.getTotalProtein();
-                    FoodObject2 fo2 = new FoodObject2(
-                            i,
-                            kcalsTotal,
-                            proteinTotal,
-                            fatTotal,
-                            carbsTotal
-                    );
-
 
                 }
-                System.out.println(i);
-                System.out.println(kcalsTotal);
+                //System.out.println(i);
+                //System.out.println(kcalsTotal);
             }
+            FoodObject2 fo2 = new FoodObject2(
+                    i,
+                    kcalsTotal,
+                    proteinTotal,
+                    fatTotal,
+                    carbsTotal
+            );
+            foodList2.add(fo2);
 
+
+        }
+        DayGainsAdapter.notifyDataSetChanged();
+        for (FoodObject2 foo2: foodList2)
+        {
+            System.out.println("HHHHH");
         }
 
 
 
+    }
+
+    private void initializeDayGainsRecyclerView() {
+        dayGains = findViewById(R.id.dayGains);
+        dayGains.setHasFixedSize(false);
+        dayGains.setNestedScrollingEnabled(false);
+        RecyclerView.LayoutManager dayGainsLayoutManager = new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false);
+        dayGains.setLayoutManager(dayGainsLayoutManager);
+
+        DayGainsAdapter = new DayGainsAdapter(this,foodList2);
+        dayGains.setAdapter(DayGainsAdapter);
+        System.out.println("Items on adapter are: " + DayGainsAdapter.getItemCount());
     }
 
 
