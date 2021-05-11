@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    app:cardCornerRadius="4dp"
+    android:clipToPadding="false"
+    android:clipChildren="false"
+    app:cardBackgroundColor="#f9f9f9"
+    app:cardElevation="5dp"
+    app:cardUseCompatPadding="true"
+    app:cardPreventCornerOverlap="false"
+    android:clickable="true"
+    android:id="@+id/meal">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+
+
+        <TextView
+
+            android:paddingVertical="5dp"
+            android:paddingHorizontal="18dp"
+            android:background="@color/main_color"
+            android:id="@+id/Date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:text="Chicken Breast"
+            android:textSize="15dp"
+            android:textColor="#ffffff"
+            android:textStyle="bold" />
+
+
+
+        <TextView
+            android:id="@+id/totalKcals"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:textSize="15dp"
+            android:text="- 345kcal" />
+
+        <TextView
+            android:id="@+id/totalProtein"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:textSize="15dp"
+            android:text="- 25gr protein" />
+
+        <TextView
+            android:id="@+id/totalFat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:textSize="15dp"
+            android:text="- 8gr fat" />
+
+        <TextView
+            android:id="@+id/totalCarbs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:textSize="15dp"
+            android:text="- 35gr carbs" />
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
