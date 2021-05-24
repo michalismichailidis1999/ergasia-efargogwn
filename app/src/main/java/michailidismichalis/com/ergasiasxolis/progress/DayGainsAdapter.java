@@ -45,15 +45,11 @@ public class DayGainsAdapter extends RecyclerView.Adapter<DayGainsAdapter.DayGai
 
     @Override
     public void onBindViewHolder(@NonNull DayGainsViewHolder holder, int position) {
-        //Glide.with(context).load(foodList2.get(position).getPhoto()).into(holder.mealImage);
-
         holder.Date.setText(foodList2.get(position).getId());
         holder.totalKcals.setText("- " + foodList2.get(position).getKcals2() + " kcals");
         holder.totalProtein.setText("- " + foodList2.get(position).getProtein2() + "gr protein");
         holder.totalFat.setText("- " + foodList2.get(position).getFat2() + "gr fat");
         holder.totalCarbs.setText("- " + foodList2.get(position).getCarbs2() + "gr carbs");
-
-        //holder.meal.setOnClickListener(v -> NextMealActivity.addMeal(position));
     }
 
     @Override

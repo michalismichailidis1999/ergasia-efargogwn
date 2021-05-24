@@ -94,8 +94,6 @@ public class ProfileActivity extends AppCompatActivity {
         height.addTextChangedListener(tw);
         age.addTextChangedListener(tw);
         email.addTextChangedListener(tw);
-        //Toast.makeText(this, "Loaded", Toast.LENGTH_LONG).show();
-
     }
 
 
@@ -103,7 +101,6 @@ public class ProfileActivity extends AppCompatActivity {
     public void LoadData()
     {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        String uid = user.getUid();
         DatabaseReference usersDB = FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getUid());
 
         usersDB.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -159,32 +156,21 @@ public class ProfileActivity extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setCancelable(true);
         builder.setTitle(title);
-        //builder.setMessage("Do you want to save this meal?");
-        //You have unsaved changes. Are you sure that you wan to quit
+        //You have unsaved changes. Are you sure that you want to quit
         //Quit Cancel
         builder.setMessage(msg);
         builder.setPositiveButton(positiveText,
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        //createNextMeal();
-
-                        //Intent intent = new Intent(getApplicationContext(), SaveMealActivity.class);
-                        //intent.putExtra("foodList", addedMealsList);
-
-                        //startActivity(intent);
                         if (positiveText.equalsIgnoreCase("yes"))
-                        finish();
+                            finish();
                     }
                 });
         builder.setNegativeButton(negativeText, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                //createNextMeal();
-
                 dialog.cancel();
-
-                //finish();
             }
         });
 
@@ -194,11 +180,12 @@ public class ProfileActivity extends AppCompatActivity {
     private void goToMenu() {
         Log.d("fd","3"+(isActual));
         if (isActual !=true ) //Check changes
-        { createConfirmDialog("Warning","You have unsaved changes !" +
+        {
+            createConfirmDialog("Warning","You have unsaved changes !" +
                         '\n'+ "Are you sure that you want to quit ?",
                 //would you like to save them before exit ?
                 "Yes", "No");
-        dialog.show();
+            dialog.show();
         }
 
         else

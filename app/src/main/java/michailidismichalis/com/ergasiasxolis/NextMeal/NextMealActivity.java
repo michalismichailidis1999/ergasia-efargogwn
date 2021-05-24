@@ -382,9 +382,6 @@ public class NextMealActivity extends AppCompatActivity {
         DayMonthYearTime_Key = day + "-" + month + "-" + year + " " + Time;
 
         db.child(DayMonthYearTime_Key).setValue(foodMap);
-        //Και τελείωσαν εδώ εκτός από πάνω που δήλωσα τις μεταβλητές το επόμενο σχόλιο είναι αυτό που είχες εσύ
-
-        //db.child(new Date() +"").setValue(foodMap);
     }
 
     private void createConfirmDialog(){
@@ -394,6 +391,7 @@ public class NextMealActivity extends AppCompatActivity {
         builder.setMessage("Do you want to save this meal?");
         builder.setPositiveButton("Save Meal",
                 new DialogInterface.OnClickListener() {
+                    @RequiresApi(api = Build.VERSION_CODES.O)
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         createNextMeal();
@@ -407,6 +405,7 @@ public class NextMealActivity extends AppCompatActivity {
                     }
                 });
         builder.setNegativeButton("Don't Save", new DialogInterface.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 createNextMeal();

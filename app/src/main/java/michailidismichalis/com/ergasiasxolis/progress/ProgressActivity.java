@@ -47,10 +47,6 @@ public class ProgressActivity extends AppCompatActivity {
         EatedMeals();
         initializeEatedMealRecyclerView();
         initializeDayGainsRecyclerView();
-
-
-
-
     }
 
 
@@ -155,12 +151,7 @@ public class ProgressActivity extends AppCompatActivity {
             Dates.add(onlyDate[0]);
 
         }
-        //System.out.println(Dates);
         HashSet <String> UniqueDates = new HashSet<String>(Dates);
-        //System.out.println(UniqueDates);
-
-
-
 
         for (String i : UniqueDates) {
             int carbsTotal = 0, kcalsTotal = 0, fatTotal = 0, proteinTotal = 0;
@@ -178,8 +169,6 @@ public class ProgressActivity extends AppCompatActivity {
                     proteinTotal=proteinTotal+mo2.getTotalProtein();
 
                 }
-                //System.out.println(i);
-                //System.out.println(kcalsTotal);
             }
             FoodObject2 fo2 = new FoodObject2(
                     i,
@@ -213,8 +202,6 @@ public class ProgressActivity extends AppCompatActivity {
         dayGains.setAdapter(DayGainsAdapter);
         System.out.println("Items on adapter are: " + DayGainsAdapter.getItemCount());
     }
-
-
 }
 
 
